@@ -10,7 +10,7 @@ import { FcCancel } from 'react-icons/fc'
 
 
 const NoteDeletion = () => {
-    const { notes, setTitle, setDesc } = useContext(NoteContext)
+    const { notes } = useContext(NoteContext)
     const [editId, setEditId] = useState(null)
     const [updatedtitle, setUpdatedTitle] = useState("")
     const [updateddescription, setUpdatedDescription] = useState("")
