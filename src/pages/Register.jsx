@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const [fullName, setFullName] = useState("")
@@ -13,12 +13,11 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:3000/api/auth/user/register",
         { fullName, email, password },
         { withCredentials: true }
       )
-      console.log(response)
       navigate("/")
     } catch (err) {
       console.error(err)
@@ -26,7 +25,7 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
       <motion.form
         onSubmit={handleSubmit}
         whileHover={{ scale: 1.02 }}
@@ -37,7 +36,7 @@ const Register = () => {
         <div className="flex flex-col gap-2">
           <label className="text-white font-medium">Full Name</label>
           <input
-          
+
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Your Full Name"
@@ -50,7 +49,7 @@ const Register = () => {
         <div className="flex flex-col gap-2">
           <label className="text-white font-medium">Email</label>
           <input
-          
+
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your Email"
@@ -63,7 +62,7 @@ const Register = () => {
         <div className="flex flex-col gap-2">
           <label className="text-white font-medium">Password</label>
           <input
-          
+
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Your Password"
@@ -81,9 +80,7 @@ const Register = () => {
         </button>
         <p className="mt-6 text-center text-gray-200">
           Already Have an accound?{" "}
-          <a href="/user/login" className="text-indigo-400 font-medium hover:underline">
-            Sign In
-          </a>
+          <Link className="text-indigo-400 font-medium hover:underline" to="/user/login">Sign In</Link>
         </p>
       </motion.form>
     </div>
