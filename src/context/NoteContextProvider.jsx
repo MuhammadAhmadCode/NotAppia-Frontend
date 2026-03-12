@@ -7,6 +7,8 @@ import { AuthContext } from './AuthContext'
 const NoteContextProvider = ({ children }) => {
   const [notes, setNotes] = useState([])
   const { user} = useContext(AuthContext)
+  const [title, setTitle] = useState("")
+  const [desc, setDesc] = useState("")
 
 
 
@@ -26,7 +28,7 @@ const NoteContextProvider = ({ children }) => {
     fetchNotes();
   }, [user,notes]);
   return (
-    <NoteContext.Provider value={{ notes, setNotes }}>
+    <NoteContext.Provider value={{ notes, setNotes,title,desc,setTitle,setDesc}}>
       {children}
     </NoteContext.Provider>
   )

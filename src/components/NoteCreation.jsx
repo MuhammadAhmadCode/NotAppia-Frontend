@@ -1,9 +1,9 @@
 import axios from 'axios'
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
+import NoteContext from '../context/NoteContext'
 
 const NoteCreation = () => {
-    const [title, setTitle] = useState("")
-    const [desc, setDesc] = useState("")
+  const {title,setTitle,setDesc,desc} = useContext(NoteContext)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
