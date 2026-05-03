@@ -28,7 +28,7 @@ const LoginPage = () => {
       });
       localStorage.setItem("token", response.data.token);
       setUser(response.data);
-      navigate("/notes");
+      navigate("/");
     } catch (err) {
       setError(
         err.response?.data?.message ||

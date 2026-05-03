@@ -13,7 +13,7 @@ const AppRoutes = () => {
         <Route path="/user/login" element={<Login />} />
 
         <Route
-          path="/notes"
+          path="/"
           element={
             <ProtectedRoute>
               <Notes />

@@ -29,7 +29,7 @@ const Register = () => {
         password,
       });
       localStorage.setItem("token", response.data.token);
-      navigate("/notes");
+      navigate("/");
     } catch (err) {
       setError(
         err.response?.data?.message || "Registration failed. Please try again.",
