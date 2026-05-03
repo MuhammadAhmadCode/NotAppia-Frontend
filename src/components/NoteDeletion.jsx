@@ -1,86 +1,153 @@
-import React, { useContext, useState } from 'react'
-import NoteContext from '../context/NoteContext'
-import axios from 'axios'
-import { motion } from 'motion/react'
-import { BiEdit, BiSave } from 'react-icons/bi'
-import { AiFillDelete } from 'react-icons/ai'
-import { FcCancel } from 'react-icons/fc'
-
-
-
+import React, { useContext, useState } from "react";
+import NoteContext from "../context/NoteContext";
+import axios from "axios";
+import { motion } from "motion/react";
+import { BiEdit, BiSave } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
+import { MdClose } from "react-icons/md";
 
 const NoteDeletion = () => {
-    const { notes } = useContext(NoteContext)
-    const [editId, setEditId] = useState(null)
-    const [updatedtitle, setUpdatedTitle] = useState("")
-    const [updateddescription, setUpdatedDescription] = useState("")
+  const { notes } = useContext(NoteContext);
+  const [editId, setEditId] = useState(null);
+  const [updatedtitle, setUpdatedTitle] = useState("");
+  const [updateddescription, setUpdatedDescription] = useState("");
 
-
-    const handleDelete = async (id) => {
-        const c = confirm("Do you Really Wanna Delete the note")
-        if (c) {
-            await axios.delete(`http://localhost:3000/api/notes/deletenote/${id}`, { withCredentials: true })
-        }
+  const handleDelete = async (id) => {
+    if (window.confirm("Delete this note?")) {
+      try {
+        await axios.delete(`http://localhost:3000/api/notes/deletenote/${id}`, {
+          withCredentials: true,
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
-    
-    const handleEdit = async (id) => {
-        const note = notes.filter((note) => note._id == id)
-        setUpdatedDescription(note[0].description)
-        setUpdatedTitle(note[0].title)
-        setEditId(id)
+  };
+
+  const handleEdit = (id) => {
+    const note = notes.find((n) => n._id === id);
+    setUpdatedDescription(note.description);
+    setUpdatedTitle(note.title);
+    setEditId(id);
+  };
+
+  const handleSave = async (id) => {
+    try {
+      await axios.patch(
+        `http://localhost:3000/api/notes/updatenote/${id}`,
+        { updatedtitle, updateddescription },
+        { withCredentials: true },
+      );
+      setEditId(null);
+    } catch (err) {
+      console.error(err);
     }
-    
-    const handleSave = async(id)=>{
-        await axios.patch(`http://localhost:3000/api/notes/updatenote/${id}`,{updatedtitle,updateddescription}, { withCredentials: true })
-        setEditId(null)
-    }
+  };
 
-    const handleCancel = () => {
-        setEditId(null)
-        setUpdatedTitle("")
-        setUpdatedDescription("")
-    }
+  const handleCancel = () => {
+    setEditId(null);
+    setUpdatedTitle("");
+    setUpdatedDescription("");
+  };
 
-    return (
-        <div className='md:w-1/2 w-full p-4 flex flex-wrap overflow-y-auto gap-5 h-full border-l-4  justify-center border-l-black'>
-            {notes.length === 0 && <div className='text-white p-9 text-xl text-center'>No Notes To Display</div>}
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="bg-slate-800 rounded-2xl p-6 border border-slate-700 h-full flex flex-col overflow-hidden"
+    >
+      <h2 className="text-2xl font-bold text-white mb-4">Your Notes</h2>
 
-            {notes.map((note) => {
-                return (
-                    <motion.div
-                        whileHover={{
-                            scale: 1.06
-                        }}
-                        drag
-                        dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
-                        whileDrag={{ scale: 1.09 }}
-                        key={note._id} className='flex rounded-xl overflow-hidden text-white w-45 h-fit p-6 justify-between bg-[#8686863e] items-center flex-col gap-6 border-2 border-black drop-shadow-lg drop-shadow-gray-900'>
-                        {editId !== note._id && <h2 className='text-xl font-semibold '>{note.title}</h2>}
-                        {editId !== note._id && <p className='text-sm'>{note.description}</p>}
-
-                        {editId == note._id && <input
-                            className='border-2 px-2 rounded-2xl w-[98%] border-white'
-                            value={updatedtitle}
-                            onChange={(e) => setUpdatedTitle(e.target.value)}
-                            type="text"
-                            placeholder='Enter Updated Task'
-                        />}
-
-                        {editId == note._id && <textarea
-                            className='border-2 py-10 px-2 rounded-2xl w-[99%] border-white' value={updateddescription} placeholder='Enter Updated Description' onChange={(e) => setUpdatedDescription(e.target.value)} name="textare">
-                        </textarea>}
-
-                        <div className='flex gap-4'>
-                            <motion.button whileHover={{ scale: 1.06 }} onClick={() => handleDelete(note._id)} className='py-1 bg-red-700 px-4 rounded-xl cursor-pointer'><AiFillDelete /></motion.button>
-                            {editId !== note._id && <motion.button whileHover={{ scale: 1.06 }} onClick={() => handleEdit(note._id)} className='py-1 bg-red-700 px-4 rounded-xl cursor-pointer'><BiEdit /></motion.button>}
-                            {editId == note._id && <motion.button disabled={updateddescription.trim().length<4 && updatedtitle.trim().length<4} whileHover={{ scale: 1.06 }} onClick={() => handleSave(note._id)} className='py-1 bg-red-700 px-2 rounded-xl cursor-pointer'><BiSave /></motion.button>}
-                            {editId == note._id && <motion.button whileHover={{ scale: 1.06 }} onClick={() => handleCancel(note._id)} className='py-1 bg-red-700 px-2 text-white rounded-xl cursor-pointer'><FcCancel /></motion.button>}
-                        </div>
-                    </motion.div>
-                )
-            })}
+      {notes.length === 0 ? (
+        <div className="flex items-center justify-center flex-1 text-gray-400 text-center">
+          <p className="text-lg">No notes yet. Create your first note!</p>
         </div>
-    )
-}
+      ) : (
+        <div className="grid grid-cols-1 gap-4 overflow-y-auto flex-1 pr-2">
+          {notes.map((note) => {
+            const isEditing = editId === note._id;
+            return (
+              <motion.div
+                key={note._id}
+                layout
+                whileHover={!isEditing ? { scale: 1.02 } : {}}
+                className="bg-slate-700 border border-slate-600 rounded-xl p-4 text-white transition-all hover:border-slate-500"
+              >
+                {!isEditing ? (
+                  <>
+                    <h3 className="text-lg font-semibold mb-2 wrap-break-word line-clamp-2">
+                      {note.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm mb-4 wrap-break-word line-clamp-3">
+                      {note.description}
+                    </p>
+                    <div className="flex gap-2 justify-between">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleEdit(note._id)}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 rounded-lg cursor-pointer transition"
+                      >
+                        <BiEdit size={18} /> Edit
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleDelete(note._id)}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-red-600 hover:bg-red-700 rounded-lg cursor-pointer transition"
+                      >
+                        <AiFillDelete size={18} /> Delete
+                      </motion.button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="space-y-3">
+                    <input
+                      className="w-full px-3 py-2 bg-slate-600 border border-slate-500 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                      value={updatedtitle}
+                      onChange={(e) => setUpdatedTitle(e.target.value)}
+                      type="text"
+                      placeholder="Note title"
+                    />
+                    <textarea
+                      className="w-full px-3 py-2 bg-slate-600 border border-slate-500 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition resize-none"
+                      value={updateddescription}
+                      placeholder="Note description"
+                      onChange={(e) => setUpdatedDescription(e.target.value)}
+                      rows="3"
+                    />
+                    <div className="flex gap-2 justify-end">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        disabled={
+                          updateddescription.trim().length < 4 ||
+                          updatedtitle.trim().length < 4
+                        }
+                        onClick={() => handleSave(note._id)}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-green-600 hover:bg-green-700 disabled:bg-gray-500 rounded-lg cursor-pointer transition"
+                      >
+                        <BiSave size={18} /> Save
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        type="button"
+                        onClick={() => handleCancel()}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-gray-600 hover:bg-gray-700 rounded-lg cursor-pointer transition"
+                      >
+                        <MdClose size={18} /> Cancel
+                      </motion.button>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
+    </motion.div>
+  );
+};
 
-export default NoteDeletion
+export default NoteDeletion;

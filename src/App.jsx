@@ -1,13 +1,12 @@
-import { useContext } from 'react'
-import AppRoutes from './routes/AppRoutes'
-
+import { useContext } from "react";
+import AppRoutes from "./routes/AppRoutes";
 
 const App = () => {
   return (
-    <div className='h-screen w-full bg-blue-950'>
-      <AppRoutes/>
+    <div className="h-screen w-full">
+      <AppRoutes />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
