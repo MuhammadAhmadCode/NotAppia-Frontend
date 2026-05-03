@@ -22,9 +22,13 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
     try {
-      const res = await api.post("/auth/user/login", { email, password });
-      setUser(res.data);
-      navigate("/");
+      const response = await api.post("/auth/user/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("token", response.data.token);
+      setUser(response.data);
+      navigate("/notes");
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -36,7 +40,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <div className="grid md:grid-cols-2 gap-8 w-full max-w-6xl items-center">
         {/* Left side - Branding */}
         <motion.div

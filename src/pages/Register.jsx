@@ -23,12 +23,13 @@ const Register = () => {
     setError("");
     setLoading(true);
     try {
-      await api.post("/auth/user/register", {
+      const response = await api.post("/auth/user/register", {
         fullName,
         email,
         password,
       });
-      navigate("/");
+      localStorage.setItem("token", response.data.token);
+      navigate("/notes");
     } catch (err) {
       setError(
         err.response?.data?.message || "Registration failed. Please try again.",
@@ -39,7 +40,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <div className="grid md:grid-cols-2 gap-8 w-full max-w-6xl items-center">
         {/* Left side - Features */}
         <motion.div
