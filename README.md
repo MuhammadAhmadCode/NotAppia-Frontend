@@ -25,4 +25,6 @@ The application connects to a backend API that handles authentication and stores
 
 Users first register or log in to their account. After authentication, they can create and manage notes that are stored securely and linked to their user account.
 
+## Live URL: https://not-appia-frontend.vercel.app/
+
 The frontend communicates with the backend API to handle authentication and perform CRUD operations on notes.
