@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../api/axios'
 import { AuthContext } from './AuthContext'
 
 const AuthContextProvider = ({children}) => {
@@ -8,9 +8,7 @@ const AuthContextProvider = ({children}) => {
 
   const checkUser = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/auth/me", {
-        withCredentials: true
-      })
+      const res = await api.get("/auth/me")
 
       setUser(res.data);
     } catch (error) {

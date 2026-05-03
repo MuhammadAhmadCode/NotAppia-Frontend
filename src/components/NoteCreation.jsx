@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api/axios";
 import React, { useContext, useState } from "react";
 import NoteContext from "../context/NoteContext";
 import { motion } from "motion/react";
@@ -13,11 +13,10 @@ const NoteCreation = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(
-        "http://localhost:3000/api/notes/create-note",
-        { title: title, description: desc },
-        { withCredentials: true },
-      );
+      await api.post("/notes/create-note", {
+        title: title,
+        description: desc,
+      });
       setTitle("");
       setDesc("");
     } catch (err) {
@@ -29,9 +28,7 @@ const NoteCreation = () => {
 
   const handleLogOut = async () => {
     try {
-      await axios.get("http://localhost:3000/api/auth/user/logout", {
-        withCredentials: true,
-      });
+      await api.get("/auth/user/logout");
       setUser(null);
     } catch (err) {
       console.error(err);

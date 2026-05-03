@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api/axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -22,11 +22,7 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/auth/user/login",
-        { email, password },
-        { withCredentials: true },
-      );
+      const res = await api.post("/auth/user/login", { email, password });
       setUser(res.data);
       navigate("/");
     } catch (err) {

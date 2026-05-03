@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import NoteContext from './NoteContext'
-import axios from 'axios'
+import api from '../api/axios'
 import { AuthContext } from './AuthContext'
 
 
@@ -16,9 +16,7 @@ const NoteContextProvider = ({ children }) => {
     if (!user) return;
     const fetchNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/notes/allnotes", {
-          withCredentials: true,
-        });
+        const res = await api.get("/notes/allnotes");
         setNotes(res.data.notes);
       } catch (err) {
         console.log(err);

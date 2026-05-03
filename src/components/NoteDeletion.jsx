@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import NoteContext from "../context/NoteContext";
-import axios from "axios";
+import api from "../api/axios";
 import { motion } from "motion/react";
 import { BiEdit, BiSave } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
@@ -15,9 +15,7 @@ const NoteDeletion = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Delete this note?")) {
       try {
-        await axios.delete(`http://localhost:3000/api/notes/deletenote/${id}`, {
-          withCredentials: true,
-        });
+        await api.delete(`/notes/deletenote/${id}`);
       } catch (err) {
         console.error(err);
       }
@@ -33,11 +31,10 @@ const NoteDeletion = () => {
 
   const handleSave = async (id) => {
     try {
-      await axios.patch(
-        `http://localhost:3000/api/notes/updatenote/${id}`,
-        { updatedtitle, updateddescription },
-        { withCredentials: true },
-      );
+      await api.patch(`/notes/updatenote/${id}`, {
+        updatedtitle,
+        updateddescription,
+      });
       setEditId(null);
     } catch (err) {
       console.error(err);

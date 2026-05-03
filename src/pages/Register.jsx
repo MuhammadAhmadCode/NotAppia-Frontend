@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api/axios";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,11 +23,11 @@ const Register = () => {
     setError("");
     setLoading(true);
     try {
-      await axios.post(
-        "http://localhost:3000/api/auth/user/register",
-        { fullName, email, password },
-        { withCredentials: true },
-      );
+      await api.post("/auth/user/register", {
+        fullName,
+        email,
+        password,
+      });
       navigate("/");
     } catch (err) {
       setError(
