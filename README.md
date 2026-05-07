@@ -1,69 +1,136 @@
 # 📝 NotAppia – Secure Note Management
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/53dbff89-e1e2-41c7-8f54-e8c193aae185" width="800" alt="NotAppia Banner" />
+  <img src="https://placehold.co/1200x400/0f172a/ffffff?text=NotAppia+%7C+Secure+Notes+App+%7C+MERN+Stack" width="800" alt="NotAppia Banner" />
 </p>
 
 <p align="center">
-  <img src="https://shields.io" />
-  <img src="https://shields.io" />
-  <img src="https://shields.io" />
-  <img src="https://shields.io" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" />
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
 </p>
 
 <p align="center">
-  <a href="https://not-appia-frontend.vercel.app/"><strong>Explore the Live App »</strong></a>
-  <br />
-  <br />
-  <img src="https://shields.io" alt="Stars" />
-  <img src="https://shields.io" alt="Forks" />
+  <a href="YOUR_LIVE_LINK">
+    <img src="https://img.shields.io/badge/🚀_Live_Demo-black?style=for-the-badge&logo=vercel" />
+  </a>
+  <a href="https://github.com/MuhammadAhmadCode/NotAppia-Frontend">
+    <img src="https://img.shields.io/badge/GitHub-Repo-181717?style=for-the-badge&logo=github" />
+  </a>
 </p>
 
 ---
 
-### 🚀 Overview
-**NotAppia** is a sleek, minimalist notes application designed for speed and security. Built with the **MERN stack**, it provides a seamless experience for capturing thoughts while ensuring your data remains private and accessible only to you.
+## ⚡ About the Project
 
-### ✨ Key Features
-- 🔐 **Secure Entry:** User registration and login with encrypted sessions.
-- 🍪 **Cookie Auth:** Secure authentication persistence using HTTP-only cookies.
-- ✍️ **Full CRUD:** Effortlessly create, read, and delete your personal notes.
-- 📱 **Adaptive UI:** Fully responsive design that looks great on mobile and desktop.
-- ⚡ **Global State:** Powered by React Context API for lightning-fast UI updates.
-- 🛰 **Axios Integrated:** Robust API communication with intercepted requests.
+NotAppia is a secure full-stack note-taking web application built using the MERN stack.
 
-### 🛠 Tech Stack
-
-| Frontend | Backend | Styling |
-| :--- | :--- | :--- |
-| ![React](https://shields.io) | ![Node.js](https://shields.io) | ![Tailwind](https://shields.io) |
-| ![Context API](https://shields.io) | ![MongoDB](https://shields.io) | ![Vercel](https://shields.io) |
-
-### ⚙️ How It Works
-1. **Authenticate:** Register or sign in via the secure gateway.
-2. **Sync:** Your dashboard fetches your unique notes from the MongoDB cloud.
-3. **Organize:** Add new ideas instantly; our state management ensures the UI updates without page reloads.
+It allows users to store personal notes securely with authentication and protected routes.
 
 ---
 
-### 📸 Preview
+## 🔐 Features
+
+- User authentication (login/register)
+- Secure cookie/JWT-based sessions
+- Create, read, delete notes
+- User-specific data isolation
+- Clean responsive UI
+- REST API backend
+
+---
+
+## 🛠 Tech Stack
+
+- React (Frontend)
+- Node.js + Express (Backend)
+- MongoDB + Mongoose (Database)
+- Tailwind CSS (UI Styling)
+- Vercel / Render (Deployment)
+
+---
+
+## 📸 Preview
+
 <p align="center">
-  <img src="https://giphy.com" width="400" alt="Writing animation" />
+  <img width="1422" height="724" alt="image" src="https://github.com/user-attachments/assets/53dbff89-e1e2-41c7-8f54-e8c193aae185" />
 </p>
 
 ---
 
-### 🛠 Local Setup
+## 🚀 Getting Started
+
+### Clone repo
+
 ```bash
-# Clone the repository
-git clone https://github.com
+git clone YOUR_GITHUB_REPO
+cd notappia
+```
 
-# Install dependencies
+### Backend
+
+```bash
+cd server
 npm install
+npm run dev
+```
 
-# Start the development server
-npm start
+### Frontend
+
+```bash
+cd client
+npm install
+npm run dev
 ```
 
 ---
-<p align="center">Made with ❤️ for better productivity</p>
+
+## 🔑 Environment Variables
+
+Create `.env` in server:
+
+```env
+PORT=5000
+MONGO_URI=your_mongo_uri
+JWT_SECRET=your_secret
+```
+
+---
+
+## 📁 Project Structure
+
+```
+notappia/
+├── client/
+├── server/
+├── models/
+├── routes/
+├── middleware/
+```
+
+---
+
+## 🌍 Deployment
+
+- Frontend: Vercel
+- Backend: Render / Railway
+- Database: MongoDB Atlas
+
+---
+
+## 💡 What I Learned
+
+- Full-stack MERN architecture
+- Authentication flow
+- API design
+- State management in React
+- Deployment workflow
+
+---
+
+## ❤️ Footer
+
+<p align="center">
+Made with consistency and focus 🚀
+</p>
