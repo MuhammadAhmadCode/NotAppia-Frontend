@@ -1,4 +1,7 @@
 ## NotAppia – Frontend
+![React](https://img.shields.io/badge/React-Frontend-blue)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen)
 
 NotAppia is a simple notes web application frontend built with **React**.
 It allows users to create an account, log in securely, and manage their personal notes.
